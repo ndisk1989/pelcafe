@@ -1,0 +1,548 @@
+:root {
+  /* カラーパレット (ライトモードベース) */
+  --bg-color: #f8fafc; /* 少し青みがかった明るいグレー */
+  --text-main: #0f172a; /* 濃いスレートグレー */
+  --text-muted: #64748b;
+
+  /* アクセントカラー (シンプル・単色用) */
+  --accent-main: #3b82f6; /* 爽やかなブルー */
+  --accent-hover: #2563eb; /* ホバー時の濃いブルー */
+
+  /* グラスモーフィズム（すりガラス効果）用の変数 */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.9);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* タイポグラフィとリンク */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+/* =========================================
+   ナビゲーション (グラスモーフィズム)
+   ========================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(248, 250, 252, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+
+.nav-links li a {
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.nav-links li a:hover {
+  color: var(--text-main);
+}
+
+/* =========================================
+   ヒーローセクション
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 800px;
+  z-index: 2;
+  /* 表示時のふんわりアニメーション */
+  animation: fadeInUp 1s ease forwards;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -2px;
+}
+
+/* 単色テキスト (旧グラデーション部分) */
+.gradient-text {
+  color: var(--accent-main);
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  max-width: 550px;
+  margin-bottom: 2.5rem;
+}
+
+/* コールトゥアクション(CTA)ボタン */
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--accent-main);
+  border-radius: 50px;
+  color: #fff;
+  transition:
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.3s ease,
+    background 0.3s;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+.cta-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+}
+
+/* ヒーローセクションの背景装飾（動く光の玉） */
+.hero-graphics {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(80px); /* ぼかし効果で光のように見せる */
+  opacity: 0.35; /* ライトモード用に少し透明度を上げる */
+  border-radius: 50%;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  background: #e2e8f0; /* 薄いグレー */
+  top: 20%;
+  right: 10%;
+}
+
+.shape-2 {
+  width: 350px;
+  height: 350px;
+  background: #cbd5e1; /* 少し濃いグレー */
+  bottom: 10%;
+  right: 30%;
+  animation-delay: -5s;
+}
+
+/* =========================================
+   About セクション (自己紹介)
+   ========================================= */
+.about {
+  padding: 8rem 5%;
+  position: relative;
+  background-color: #fff; /* 背景に少し変化をつける */
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-pic {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  /* プロフィール画像の代わりに単色グレー（後で画像に差し替え可能） */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  border: 8px solid #fff;
+}
+
+.about-content {
+  flex: 10;
+}
+
+.about-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.about-text {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.lunch-menu {
+  flex: 100;
+  display: flex;
+  justify-content: center;
+}
+.skills-wrap {
+  background: var(--glass-bg);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+}
+
+.skills-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.skills-tags span {
+  background: #f1f5f9;
+  color: var(--text-main);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.skills-tags span:hover {
+  background: var(--accent-main);
+  color: #fff;
+  border-color: var(--accent-main);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   プロジェクトセクション
+   ========================================= */
+.projects {
+  padding: 8rem 5%;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+/* カードデザイン (ホバーアニメーション付き) */
+.project-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05); /* ライトモード用に影を追加 */
+}
+
+.project-image {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* サンプル画像代わりの背景色（シンプル） */
+.placeholder-1 {
+  background-color: #f1f5f9;
+}
+.placeholder-2 {
+  background-color: #e2e8f0;
+}
+.placeholder-3 {
+  background-color: #cbd5e1;
+}
+
+.project-info {
+  padding: 2rem;
+}
+
+.project-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-info p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.project-link {
+  color: var(--accent-main);
+  font-weight: 600;
+  position: relative;
+}
+
+.project-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent-main);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.project-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* =========================================
+   コンタクトセクション (グラスモーフィズムのハイライト)
+   ========================================= */
+.contact {
+  padding: 6rem 5%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.glassmorphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05); /* ライトモード用に影を変更 */
+}
+
+.contact-box h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-box p {
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--text-main);
+  color: var(--bg-color);
+  border-radius: 50px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s;
+}
+
+/* 各ボタンの個別カラー */
+.x-btn {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+.x-btn:hover {
+  background-color: #333;
+}
+
+.insta-btn {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  color: #fff;
+  border: none;
+}
+.insta-btn:hover {
+  opacity: 0.9;
+}
+
+.email-btn {
+  background-color: var(--accent-main);
+  color: #fff;
+  border: none;
+}
+.email-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.email-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 1rem;
+  width: 100%; /* 3つ目の要素として開業させたい場合はここを弄るが、デザイン的にボタンと並べるなら無くて良い */
+}
+
+.contact-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   フッター
+   ========================================= */
+footer {
+  text-align: center;
+  padding: 2.5rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   キーフレームアニメーション
+   ========================================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-40px, 40px) scale(1.1);
+  }
+}
+
+/* =========================================
+   レスポンシブデザイン (スマホ対応)
+   ========================================= */
+@media (max-width: 768px) {
+  .title {
+    font-size: 3.5rem;
+  }
+
+  .hero-graphics {
+    opacity: 0.15; /* スマホでは視認性向上のため装飾を少し薄くする */
+  }
+
+  .nav-links {
+    display: none; /* シンプルにするためスマホではメニューを非表示 */
+  }
+
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .about-content .section-title {
+    text-align: center !important;
+  }
+
+  .profile-pic {
+    width: 250px;
+    height: 250px;
+  }
+
+  .skills-tags {
+    justify-content: center;
+  }
+}
